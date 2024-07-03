@@ -1,6 +1,6 @@
 // App.tsx
 import { Box, Flex, Image as ChakraImage, Spinner } from '@chakra-ui/react';
-import { FreeMint } from './components/FreeMint/FreeMint';
+import { PrimarySale } from './components/PrimarySale/PrimarySale';
 import { AppHeaderBar } from './components/AppHeaderBar/AppHeaderBar';
 import { useEffect, useState } from 'react';
 
@@ -51,7 +51,7 @@ function App() {
             width={["100%", "400px"]}
             />
           </Box>
-        <FreeMint />
+        <PrimarySale />
       </Flex>
     </Flex>
   );
