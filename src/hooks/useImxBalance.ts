@@ -1,8 +1,8 @@
-import { Web3Provider } from "@ethersproject/providers";
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
+import { EIP1193Provider } from "../contexts/EIP1193Context";
 
-export function useImxBalance(provider: Web3Provider, address: string) {
+export function useImxBalance(provider: EIP1193Provider, address: string) {
   const [imxBalance, setImxBalance] = useState(new BigNumber(0));
   const [loading, setLoading] = useState(false);
 
@@ -11,7 +11,7 @@ export function useImxBalance(provider: Web3Provider, address: string) {
     if (!provider || !address) return;
     setLoading(true);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (provider.provider as any).request({ method: 'eth_getBalance', params: [address, 'latest'] })
+    (provider as any).request({ method: 'eth_getBalance', params: [address, 'latest'] })
       .then((balance: string) => {
         setImxBalance(new BigNumber(balance))
         setLoading(false);

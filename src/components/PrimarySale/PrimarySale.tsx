@@ -48,7 +48,7 @@ export function PrimarySale() {
     if(!provider) return;
     setLoading(true)
     try{
-      const allowance = await checkAllowance(provider);
+      const allowance = await checkAllowance(new Web3Provider(provider));
       if(allowance.gte(PRICE)) {
         toast({
           status: 'success',
@@ -75,7 +75,7 @@ export function PrimarySale() {
     if(!provider) return;
     setLoading(true)
     try{
-      const txReceipt = await approveSpending(provider, "1000000");
+      const txReceipt = await approveSpending(new Web3Provider(provider), "1000000");
       if(txReceipt.status === 1) {
         toast({
           status: 'success',
@@ -102,7 +102,7 @@ export function PrimarySale() {
     if(!provider) return;
     setLoading(true)
     try{
-      const txReceipt = await approveSpending(provider, "0");
+      const txReceipt = await approveSpending(new Web3Provider(provider), "0");
       if(txReceipt.status === 1) {
         toast({
           status: 'success',
@@ -129,7 +129,7 @@ export function PrimarySale() {
     if(!provider) return;
     setLoading(true)
     try{
-      const txReceipt = await initiateSale(provider);
+      const txReceipt = await initiateSale(new Web3Provider(provider));
       if(txReceipt.status === 1) {
         toast({
           status: 'success',
@@ -163,7 +163,7 @@ export function PrimarySale() {
       setMintId(null);
       setEligibilityResult(0);
     } else {
-      checkEligibility(provider);
+      checkEligibility(new Web3Provider(provider));
     }
   }, [walletAddress, provider, checkEligibility])
 
