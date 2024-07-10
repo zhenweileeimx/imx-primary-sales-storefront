@@ -15,13 +15,14 @@ export interface Widgets {
   swap?: Widget<WidgetType.SWAP>;
   bridge?: Widget<WidgetType.BRIDGE>;
   onramp?: Widget<WidgetType.ONRAMP>;
+  sale?: Widget<WidgetType.SALE>;
 }
 
 export interface CheckoutContextState {
   checkout?: checkout.Checkout;
   widgets: Widgets;
   widgetsFactory?: ImmutableCheckoutWidgets.WidgetsFactory;
-  openWidget: (widgetType:WidgetType) => void;
+  openWidget: (widgetType:WidgetType, params?:any) => void;
 }
 
 export const CheckoutContext = createContext<CheckoutContextState>({
@@ -31,6 +32,7 @@ export const CheckoutContext = createContext<CheckoutContextState>({
     swap: undefined,
     bridge: undefined,
     onramp: undefined,
+    sale: undefined
   },
   openWidget: () => {},
 });
@@ -44,7 +46,7 @@ export function CheckoutProvider({ children, checkout }: CheckoutProvider) {
   const [widgets, setWidgets] = useState<Widgets>({});
   const {isOpen: isWidgetModalOpen, onOpen, onClose} = useDisclosure();
   const [widgetToOpen, setWidgetToOpen] = useState(WidgetType.CONNECT);
-  // const [provider, setProvider] = useState<Provider>();
+  const [params, setParams] = useState({});
 
   useEffect(() => {
     // Initialise widgets and create all widgets at beginning of application
@@ -55,21 +57,24 @@ export function CheckoutProvider({ children, checkout }: CheckoutProvider) {
         const swap = widgetsFactory.create(WidgetType.SWAP, {});
         const bridge = widgetsFactory.create(WidgetType.BRIDGE, {});
         const onramp = widgetsFactory.create(WidgetType.ONRAMP, {});
+        const sale = widgetsFactory.create(WidgetType.SALE, {});
 
         setWidgets({
           connect,
           wallet,
           swap,
           bridge,
-          onramp
+          onramp,
+          sale
         })
         setWidgetsFactory(widgetsFactory)
       })
   }, [checkout]);
 
-  const openWidget = (widgetType:WidgetType) => {
+  const openWidget = (widgetType:WidgetType, params?: any) => {
     if(!Object.values(WidgetType).includes(widgetType)) return;
     setWidgetToOpen(widgetType);
+    setParams(params ?? {});
     onOpen();
   }
 
@@ -79,12 +84,10 @@ export function CheckoutProvider({ children, checkout }: CheckoutProvider) {
       widgets,
       widgetsFactory,
       openWidget,
-      // provider,
-      // setProvider
     }}>
       <>
       {children}
-      <WidgetModal widgetType={widgetToOpen} isOpen={isWidgetModalOpen} onOpen={onOpen} onClose={onClose} />
+      <WidgetModal widgetType={widgetToOpen} params={params} isOpen={isWidgetModalOpen} onOpen={onOpen} onClose={onClose} />
       </>
   </CheckoutContext.Provider>
   )

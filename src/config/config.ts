@@ -11,7 +11,9 @@ const config = {
     passportRedirectUri: import.meta.env.VITE_SANDBOX_PASSPORT_LOGIN_REDIRECT_URI,
     passportLogoutRedirectUri: import.meta.env.VITE_SANDBOX_PASSPORT_LOGOUT_REDIRECT_URI,
     immutableApiBaseUrl: import.meta.env.VITE_SANDBOX_IMMUTABLE_API_BASE_URL,
-    mintingBackendApiBaseUrl: import.meta.env.VITE_MINTING_BACKEND_API_BASE_URL,
+    primarySaleBackendUrl: import.meta.env.VITE_PRIMARY_SALE_BACKEND_URL,
+    primarySaleApiKey: import.meta.env.VITE_PRIMARY_SALE_BACKEND_API_KEY,
+    hubEnvironmentId: import.meta.env.VITE_HUB_ENVIRONMENT_ID,
     explorerUrl: "https://explorer.testnet.immutable.com",
   },
   [Environment.PRODUCTION]: {
@@ -20,7 +22,9 @@ const config = {
     passportRedirectUri: import.meta.env.VITE_MAINNET_PASSPORT_LOGIN_REDIRECT_URI,
     passportLogoutRedirectUri: import.meta.env.VITE_MAINNET_PASSPORT_LOGOUT_REDIRECT_URI,
     immutableApiBaseUrl: import.meta.env.VITE_MAINNET_IMMUTABLE_API_BASE_URL,
-    mintingBackendApiBaseUrl: import.meta.env.VITE_MINTING_BACKEND_API_BASE_URL,
+    primarySaleBackendUrl: import.meta.env.VITE_PRIMARY_SALE_BACKEND_URL,
+    primarySaleApiKey: import.meta.env.VITE_PRIMARY_SALE_BACKEND_API_KEY,
+    hubEnvironmentId: import.meta.env.VITE_HUB_ENVIRONMENT_ID,
     explorerUrl: "https://explorer.immutable.com",
   },
 };

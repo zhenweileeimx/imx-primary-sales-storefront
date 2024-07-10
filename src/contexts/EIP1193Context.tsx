@@ -6,6 +6,7 @@ export type EIP1193Provider = ExternalProvider & {
   on: (eventType: string, handler: (...args: any) => void) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   removeListener: (eventType: string, handler: (...args: any) => void) => void;
+  isPassport?: boolean;
 }
 export interface EIP1193ContextState {
   provider: EIP1193Provider | null;
@@ -46,6 +47,7 @@ export const EIP1193ContextProvider = ({children}: EIP1193ContextProvider) => {
       setWalletAddress((await provider.request!({method: 'eth_accounts'}))[0].toLowerCase() ?? '')
     }
     setProvider(provider as EIP1193Provider);
+    setIsPassport(Boolean(provider.isPassport))
     getProviderDetails();
   }, [provider]);
 

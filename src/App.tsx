@@ -1,8 +1,8 @@
 // App.tsx
 import { Box, Flex, Image as ChakraImage, Spinner } from '@chakra-ui/react';
-import { PrimarySale } from './components/PrimarySale/PrimarySale';
 import { AppHeaderBar } from './components/AppHeaderBar/AppHeaderBar';
 import { useEffect, useState } from 'react';
+import { Storefront } from './components/Storefront/Storefront';
 
 const BACKGROUND_IMAGE_URL = "https://assets-global.website-files.com/646557ee455c3e16e4a9bcb3/646557ee455c3e16e4a9be6b_Iridescent%20Bitmap%20Blend.jpg";
 
@@ -51,7 +51,7 @@ function App() {
             width={["100%", "400px"]}
             />
           </Box>
-        <PrimarySale />
+        <Storefront />
       </Flex>
     </Flex>
   );
