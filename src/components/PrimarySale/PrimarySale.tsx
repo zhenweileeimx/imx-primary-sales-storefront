@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, CardFooter, Image as ChakraImage, Flex, HStack, Heading, Text, VStack, theme } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { EIP1193Context } from "../../contexts/EIP1193Context";
 import { CheckoutContext } from "../../contexts/CheckoutContext";
 import { ProductWithMetadata } from "../../types/product";
@@ -12,6 +12,22 @@ interface PrimarySale {
 export function PrimarySale({product}: PrimarySale) {
   const {walletAddress, provider} = useContext(EIP1193Context);
   const {openWidget} = useContext(CheckoutContext);
+  const [quantity, setQuantity] = useState(1);
+
+  function increment() {
+    setQuantity((prev) => {
+      if(prev === 20) return 20;
+      return prev + 1;
+    });
+  }
+
+  function decrement() {
+    setQuantity((prev) => { 
+      if(prev === 1) return 1;
+
+      return prev - 1;
+    });
+  }
 
   async function handleBuyNow(product: ProductWithMetadata, quantity?: number) {
     openWidget(WidgetType.SALE, {
@@ -51,11 +67,16 @@ export function PrimarySale({product}: PrimarySale) {
             <ChakraImage src={"https://checkout-cdn.sandbox.immutable.com/v1/blob/img/tokens/0x3b2d8a1931736fc321c24864bceee981b11c3c57.svg"} height={6} />
             <Text>{`${product.pricing[0].currency} ${product.pricing[0].amount}`}</Text>
           </HStack>
+          <HStack gap={2}>
+            <Button borderRadius={"100%"} fontWeight={"bold"} onClick={decrement} aria-label={"decrement"}>-</Button>
+            <Text fontWeight={"bold"}>{quantity}</Text>
+            <Button borderRadius={"100%"} fontWeight={"bold"} onClick={increment} aria-label={"increment"}>+</Button>
+          </HStack>
           <Button 
           variant="solid" 
           colorScheme="blue"
           isDisabled={(!walletAddress || !provider)} 
-          onClick={() => handleBuyNow(product)}
+          onClick={() => handleBuyNow(product, quantity)}
           >
             Buy now
           </Button>

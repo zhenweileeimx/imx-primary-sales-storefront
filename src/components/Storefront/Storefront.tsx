@@ -5,7 +5,6 @@ import { getProducts } from "../../api/getProducts";
 import { ProductWithMetadata } from "../../types/product";
 
 export function Storefront() {
-
   // Local state
   const [loading, setLoading] = useState(false);
 

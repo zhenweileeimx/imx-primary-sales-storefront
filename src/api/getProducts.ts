@@ -5,13 +5,9 @@ import { blockchainDataClient } from "../immutable/blockchainData";
 export async function getProducts(): Promise<ProductWithMetadata[]> {
   const products: ProductsResult = await (
     await fetch(`${config[applicationEnvironment].primarySaleBackendUrl}/products`, {
-      method: 'GET',
-      headers: {
-        'Authorization': config[applicationEnvironment].primarySaleApiKey,
-      }
+      method: 'GET'
     })
   ).json();
-  console.log("Primary sale products: ", products);
 
   const metadataCalls = products.productData.map((product: Product) =>
     blockchainDataClient.getMetadata({
