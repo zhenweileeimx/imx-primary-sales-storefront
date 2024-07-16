@@ -1,5 +1,5 @@
 // App.tsx
-import { Box, Flex, Image as ChakraImage, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Spinner, Heading, theme } from '@chakra-ui/react';
 import { AppHeaderBar } from './components/AppHeaderBar/AppHeaderBar';
 import { useEffect, useState } from 'react';
 import { Storefront } from './components/Storefront/Storefront';
@@ -45,11 +45,7 @@ function App() {
       <Flex w={"100%"} flexDir={"column"} justifyContent={"flex-start"} alignItems={"center"} px={[2,0]}>
         <AppHeaderBar />
         <Box zIndex={1} paddingX={4} mb={10}>
-          <ChakraImage 
-            src="https://assets-global.website-files.com/646557ee455c3e16e4a9bcb3/646557ee455c3e16e4a9bcbe_immutable-logo.svg" 
-            alt="Example Image" 
-            width={["100%", "400px"]}
-            />
+          <Heading color={theme.colors.white} size={"xl"}>CryptoBirds</Heading>
           </Box>
         <Storefront />
       </Flex>
