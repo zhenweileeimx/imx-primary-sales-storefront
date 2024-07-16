@@ -1,16 +1,10 @@
-# Immutable Examples React
+# Primary Sale Storefront + Primary Sales Widget
 
-This repository contains example projects for common functionlaity when integrating with Immutable zkEVM.
+This is a sample application for setting up a Primary Sales Storefront on Immutable zkEVM using the Immutable Primary Sales Widget. This should be used to feature the products that you wish to sell as well as configure and integrate with the Primary Sales widget to facilitate fiat and crypto payment flows.
 
-Each project has it's own branch. The main branch is called `template` and is used as a basic demo of Immutable Passport and Checkout but also being used as the base for other projects.
+This application is meant to be used alongside the [Primary Sales Backend code](https://github.com/ZacharyCouchman/primary-sales-backend)
 
-## Projects
-
-`template` - the base template branch which contains basic setup and use of Passport and Checkout
-
-`free-mint` - a free mint template to use with the minting-api-backend repo. Allows projects to run a free mint on Immutable zkEVM with multiple phases and whitelist abilities.
-
-`nft-token-migration` - a token migration template to use with token-migration-backend repo. Allows projects to migrate NFTs from another chain and mint a corresponding NFT on Immutable zkEVM. Can be used to migrate from original wallet to Immutable Passport.
+<img src="./PrimarySalesStorefront-Diagram.png">
 
 ## Disclaimer
 
@@ -22,8 +16,6 @@ The sample code provided is for reference purposes only and is not officially su
 
 ## Get Started
 
-Checkout the project branch that you want from above.
-
 Install the latest version of the @imtbl/sdk.
 
 ```bash
@@ -33,7 +25,17 @@ npm i
 
 ## Add configuration
 
-Rename .env.example to .env, replace all of the variables with your own project variables from https://hub.immutable.com
+Rename .env.example to .env, replace all of the variables with your own project variables from https://hub.immutable.com.
+
+| Variable | Description |
+| ------------ | ----------- |
+| *_ENVIRONMENT | The environment you want to configure the Checkout widgets and Passport for. 'sandbox' will use Immutable zkEVM Testnet, 'production' for Immutable zkEVM Mainnet |
+|*_IMMUTABLE_PUBLISHABLE_KEY | The publishable API key from your project in https://hub.immutable.com |
+| *_PASSPORT_CLIENT_ID | The Passport client id from your project in https://hub.immutable.com |
+| *_PASSPORT_LOGIN_REDIRECT_URI | The login redirect uri that you have configured in your project in https://hub.immutable.com. A route in this project should match the redirect route and handle the passport login callback. (See src/routes/PassportRedirect.tsx ) |
+| *_PASSPORT_LOGOUT_REDIRECT_URI| The logout redirect uri that you have configured in your project in https://hub.immutable.com |
+| *_PRIMARY_SALE_BACKEND_URL| The base URL the your Primary Sale Backend API is hosted at. |
+| *_HUB_ENVIRONMENT_ID| The environment id of your project and environment combination found in the URL of Immutable Hub. (The Second UUID in the URL is your environment id when you select project and environment combination in the Hub) e.g `https://hub.immutable.com/projects/b8dd8d92-bbf7-4482-81e1-1e14ff4cc730/0b532cc9-5e02-412b-89e9-b5233b4d185f/collections`|
 
 
 ## Start
@@ -42,7 +44,7 @@ Rename .env.example to .env, replace all of the variables with your own project 
 
 ## Passport login flow
 
-After setting up your passport clientId and redirect variables, make sure that you have a route to handle the redirect. The component at this route should use the passport instance to call `loginCallback()`. See PassportRedirect component and how it is added to the React Router in main.tsx.
+After setting up your passport clientId and redirect variables, make sure that you have a route to handle the redirect. The component at this route should use the passport instance to call `loginCallback()`. This example has the PassportRedirect component set up on the route `/passport-redirect` but this will need to be setup on the route that you have configured as your _PASSPORT_LOGIN_REDIRECT_URI . See how it is added to the React Router in main.tsx.
 
 ## Gotchas
 
@@ -51,37 +53,6 @@ In order to build for production, a package `jsbi` had to be installed to suppor
 ## Deployment in Vercel
 
 A `vercel.json` file has been added to help configure for deployments in Vercel. This is not neccessary if you are not deploying to Vercel. It is re-writing all routes back to the index.html file to make the React Router work correctly.
-
-## Vite details
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
 ## UI Kit: Chakra UI
 
