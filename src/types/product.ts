@@ -39,9 +39,21 @@ export interface Product {
   name: string;
   description: string;
   rarity: string;
+  image: string;
   contract_address: string;
   metadata_id: string;
-  pricing: Pricing[];
+  pricing: string;
+  quantity: number;
+}
+export interface SaleProduct{
+  id: string;
+  title: string;
+  price: string;
+  image: string;
+  description: string;
+  productId: number;
+  qty: number;
+  collectionName: string;
 }
 
 export interface ProductWithMetadata extends Product {

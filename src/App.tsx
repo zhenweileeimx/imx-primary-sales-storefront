@@ -45,7 +45,7 @@ function App() {
       <Flex w={"100%"} flexDir={"column"} justifyContent={"flex-start"} alignItems={"center"} px={[2,0]}>
         <AppHeaderBar />
         <Box zIndex={1} paddingX={4} mb={10}>
-          <Heading color={theme.colors.white} size={"xl"}>CryptoBirds</Heading>
+          <Heading color={theme.colors.white} size={"xl"}>Primary Sale Storefront Sample</Heading>
           </Box>
         <Storefront />
       </Flex>

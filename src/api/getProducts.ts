@@ -9,6 +9,7 @@ export async function getProducts(): Promise<ProductWithMetadata[]> {
     })
   ).json();
 
+  console.log(`Products:`, products);
   const metadataCalls = products.productData.map((product: Product) =>
     blockchainDataClient.getMetadata({
       chainName: 'imtbl-zkevm-testnet',
